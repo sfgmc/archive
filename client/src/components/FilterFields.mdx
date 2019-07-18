@@ -1,0 +1,31 @@
+---
+name: FilterFields
+menu: Elements
+---
+
+import { Props, Playground } from 'docz';
+import { Block, Row, Col } from 'jsxstyle';
+import { FilterFields } from './FilterFields';
+import { Spacer } from './Spacer';
+
+import ensamble from '../fixtures/ensamble.json';
+import event from '../fixtures/event.json';
+import location from '../fixtures/location.json';
+import mediaImageTall from '../fixtures/media-image-tall.json';
+import mediaImageWide from '../fixtures/media-image-wide.json';
+import mediaYoutube from '../fixtures/media-youtube.json';
+import peopleFifth from '../fixtures/people-fifth.json';
+import story from '../fixtures/story.json';
+
+# FilterFields
+
+<Playground>
+  <FilterFields
+    onFilterAdd={filterList => console.log(filterList)}
+    onFilterRemove={filterList => console.log(filterList)}
+  />
+</Playground>
+
+## API
+
+<Props of={FilterFields} />

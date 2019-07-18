@@ -1,1 +1,0 @@
-export const googleMapsAPItoken = process.env.GOOGLE_MAPS_API_TOKEN

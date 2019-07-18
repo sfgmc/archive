@@ -1,0 +1,45 @@
+---
+name: DisplayEntry
+menu: Elements
+---
+
+import { Props, Playground } from 'docz';
+import { Block, Row, Col } from 'jsxstyle';
+import { DisplayEntry } from './DisplayEntry';
+import { Spacer } from './Spacer';
+
+import ensamble from '../fixtures/ensamble.json';
+import event from '../fixtures/event.json';
+import location from '../fixtures/location.json';
+import mediaImageTall from '../fixtures/media-image-tall.json';
+import mediaImageWide from '../fixtures/media-image-wide.json';
+import mediaYoutube from '../fixtures/media-youtube.json';
+import peopleFifth from '../fixtures/people-fifth.json';
+import story from '../fixtures/story.json';
+
+# DisplayEntry
+
+<Playground>
+  <DisplayEntry />
+  <Spacer />
+  <DisplayEntry entry={mediaImageTall} />
+  <Spacer />
+  <DisplayEntry entry={mediaImageWide} />
+  <Spacer />
+  <DisplayEntry entry={event} />
+  <Spacer />
+  <DisplayEntry entry={location} />
+  <Spacer />
+  <DisplayEntry entry={mediaYoutube} />
+  <Spacer />
+  <DisplayEntry entry={peopleFifth} />
+  <Spacer />
+  <DisplayEntry entry={story} />
+  <Spacer />
+  <DisplayEntry entry={ensamble} />
+  <Spacer />
+</Playground>
+
+## API
+
+<Props of={DisplayEntry} />
