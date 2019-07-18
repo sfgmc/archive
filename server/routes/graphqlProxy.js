@@ -20,21 +20,21 @@ const verifyToken = token =>
 router.post(
   '/',
   asyncHandler(async (req, res, next) => {
-    let ctType = 'CONTENT';
+    let ctType = 'Content';
     let token = req.body.token; // taking the token we passed in the request
     if (await verifyToken(token)) {
-      ctType = 'MANAGEMENT';
+      ctType = 'Management';
     }
     console.log(
       req.body,
-      process.env.CONTENTFUL_GRAPHQL_ENDPOINT,
-      process.env[`CONTENTFUL_${ctType}_TOKEN`]
+      config.contentfulGraphqlEndpoint,
+      config[`contenful${ctType}Token`]
     );
     request
-      .post(process.env.CONTENTFUL_GRAPHQL_ENDPOINT, {
+      .post(config.contentfulGraphqlEndpoint, {
         json: req.body,
         auth: {
-          bearer: process.env[`CONTENTFUL_${ctType}_TOKEN`]
+          bearer: config[`contenful${ctType}Token`]
         }
       })
       .pipe(res);

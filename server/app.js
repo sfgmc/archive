@@ -9,10 +9,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const RateLimit = require('express-rate-limit');
 
+require('./authStrategies/facebook');
+require('./authStrategies/local');
+
 const signup = require('./routes/signup');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const activate = require('./routes/activate');
+const auth = require('./routes/auth');
 const config = require('./config');
 const index = require('./routes/index');
 const resetPasswordHandler = require('./routes/resetPasswordHandler');
@@ -22,7 +26,6 @@ const graphqlProxy = require('./routes/graphqlProxy');
 
 // passport imports
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 
 // mongo imports
@@ -50,12 +53,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(config.cookieParserSecret));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session());
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(cors());
 app.use(limiter);
 
 app.use('/', index);
+app.use('/auth', auth);
 app.use('/signup', signup);
 app.use('/login', login);
 app.use('/logout', logout);
@@ -64,12 +70,6 @@ app.use('/resetpasswordemail', resetPasswordEmail);
 app.use('/resetpasswordhandler', resetPasswordHandler);
 app.use('/protected', protected);
 app.use('/graphql', graphqlProxy);
-
-// passport initialize
-const { User } = require('./db/models/UserSchema');
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
