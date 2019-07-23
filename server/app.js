@@ -54,8 +54,8 @@ app.use(cookieParser(config.cookieParserSecret));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session());
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(cors());
 app.use(limiter);

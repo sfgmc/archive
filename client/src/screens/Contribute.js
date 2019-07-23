@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { Dashboard } from '../components/Dashboard';
 import config from '../config';
 import '../css/Main.css';
+import * as facebookButton from '../images/facebook.svg';
 
 class Admin extends Component {
   constructor(props) {
@@ -226,7 +227,7 @@ class Admin extends Component {
 
     return (
       <div className="">
-        {token ? ( // checking if there is a token
+        {true ? ( // checking if there is a token
           <div className="admin-signup-section container-signup container">
             <div>
               <Dashboard onLogout={this.Logout} />
@@ -405,6 +406,13 @@ class Admin extends Component {
                 </div>
               </div>
             )}
+            <img
+              src={facebookButton}
+              width={50}
+              onClick={() => {
+                window.location.href = config.backEndServer + '/auth/facebook';
+              }}
+            />
           </div>
         )}
       </div>

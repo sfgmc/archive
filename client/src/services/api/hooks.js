@@ -3,6 +3,8 @@ import { useQuery } from 'react-apollo-hooks';
 import { capitalize } from '../../utils';
 import { GET_INTROSPECTION, GET_RECORD_LIST_QUERY } from './queries';
 
+export const ensureTokenAttachment = () => {};
+
 export const useGetContentTypes = () => {
   const { data, error, loading } = useQuery(GET_INTROSPECTION());
   console.log(data);

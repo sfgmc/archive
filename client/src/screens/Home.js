@@ -2,19 +2,28 @@ import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
 import { Block, Col, Row } from 'jsxstyle';
 import React from 'react';
 import 'react-calendar/dist/Calendar.css';
+import { withRouter } from 'react-router';
 import App from '../components/App';
 import { Featured } from '../components/Featured';
 import { Footer } from '../components/Footer';
+import { Menu } from '../components/Menu';
 import { Search } from '../components/Search';
 import '../css/Main.css';
 import cpntentfulLogo from '../images/contentful-logo.png';
 import glbthsLogo from '../images/glbths-logo.png';
 import logo from '../images/logo-invert.svg';
 
-export const Home = props => {
+export const Home = withRouter(props => {
+  React.useEffect(() => {
+    if (window.location.pathname !== '/') {
+      // this is needed for auth0 login redirect on protected routes
+      props.history.push(window.location.pathname);
+    }
+  }, [props.location]);
   return (
     <App>
       <div>
+        <Menu />
         <Col alignItems="center" justifyContent="center" className="header">
           <Block
             backgroundImage={`url(${logo})`}
@@ -95,6 +104,6 @@ export const Home = props => {
       </div>
     </App>
   );
-};
+});
 
 export default Home;
