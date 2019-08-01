@@ -1,33 +1,11 @@
 import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
-// import { Gallery } from './Gallery';
-// import { filter, reject } from 'lodash';
 import { SearchInput } from 'evergreen-ui';
-import gql from 'graphql-tag';
 import { Block, Col, Row } from 'jsxstyle';
 import React from 'react';
 import 'react-calendar/dist/Calendar.css';
 import { useGetContentTypes } from '../services/api/hooks';
 import { FilterFields } from './FilterFields';
-// import { Card } from './Card';
 import { Spacer } from './Spacer';
-
-// import { mediaQueries } from '../lib/utils';
-
-// import { useArchiveStore } from '../lib/ArchiveStore';
-
-const mediaQueries = null;
-const archive = null;
-
-const buildQuery = (filters = [], searchTerm = '') => {
-  let query = '';
-  for (const filter of filters) {
-  }
-  if (searchTerm.length) {
-  }
-  return gql`
-    ${query}
-  `;
-};
 
 export const Search = props => {
   // const archive = useArchiveStore();
@@ -36,7 +14,15 @@ export const Search = props => {
   const [filters, setFilters] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState('');
 
-  const { contentTypes } = useGetContentTypes();
+  const { contentTypes, error, loading } = useGetContentTypes();
+
+  // const searchResults = useGetEntriesByFilters({
+  //   filters,
+  //   searchTerm,
+  //   contentTypes,
+  //   error,
+  //   loading
+  // })
 
   return (
     <div className="box alt container" id="searchBox">

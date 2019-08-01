@@ -1,28 +1,17 @@
-import React from "react";
+import { Heading, Switch, TextInput } from 'evergreen-ui';
+import React from 'react';
+import { Card } from '../components/Card';
+import { Spacer } from '../components/Spacer';
 
-import { Block, Col, Row } from "jsxstyle";
-import * as moment from "moment";
-import {
-  Alert,
-  Icon,
-  Popover,
-  Menu,
-  Position,
-  toaster,
-  Tooltip,
-  Heading,
-  TextInput,
-  Switch
-} from "evergreen-ui";
-import { Badge } from "../components/Badge";
-import { Pin } from "../components/Pin";
-import { Spacer } from "../components/Spacer";
-import { Card } from "../components/Card";
+// Look into ag-grid for the actual table
+//github.com/ag-grid/ag-grid
+
+https: import { Block, Col, Row } from 'jsxstyle';
 
 const resolvefield = (fieldName, field) => {
   let element;
   switch (fieldName) {
-    case "alumni":
+    case 'alumni':
       return (
         <Row flex={1}>
           {field.map(alumni => (
@@ -30,7 +19,7 @@ const resolvefield = (fieldName, field) => {
           ))}
         </Row>
       );
-    case "locations":
+    case 'locations':
       return (
         <Row flex={1}>
           {field.map(location => (
@@ -38,7 +27,7 @@ const resolvefield = (fieldName, field) => {
           ))}
         </Row>
       );
-    case "stories":
+    case 'stories':
       return (
         <Row flex={1}>
           {field.map(story => (
@@ -48,9 +37,9 @@ const resolvefield = (fieldName, field) => {
       );
   }
   switch (typeof field) {
-    case "string":
+    case 'string':
       return <TextInput onChange={value => console.log(value)} value={field} />;
-    case "boolean":
+    case 'boolean':
       return (
         <Switch
           marginBottom={16}
@@ -67,11 +56,11 @@ const resolvefield = (fieldName, field) => {
 
 const shouldNullField = fieldName => {
   return (
-    fieldName === "meta" ||
-    fieldName === "contentType" ||
-    fieldName === "hasBeenProcessed" ||
-    fieldName === "md5sum" ||
-    fieldName === "shouldFilterOut"
+    fieldName === 'meta' ||
+    fieldName === 'contentType' ||
+    fieldName === 'hasBeenProcessed' ||
+    fieldName === 'md5sum' ||
+    fieldName === 'shouldFilterOut'
   );
 };
 

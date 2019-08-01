@@ -9,8 +9,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const RateLimit = require('express-rate-limit');
 
-require('./authStrategies/facebook');
-require('./authStrategies/local');
+// require('./authStrategies/facebook');
+// require('./authStrategies/local');
 
 const signup = require('./routes/signup');
 const login = require('./routes/login');
@@ -24,14 +24,9 @@ const resetPasswordEmail = require('./routes/resetPasswordEmail');
 const protected = require('./routes/protected');
 const graphqlProxy = require('./routes/graphqlProxy');
 
-// passport imports
-const passport = require('passport');
-const session = require('express-session');
-
-// mongo imports
-const mongodb = require('mongodb');
-const MongoClient = require('mongodb').MongoClient;
-const { mongoose } = require('./db/mongoose');
+// // passport imports
+// const passport = require('passport');
+// const session = require('express-session');
 
 const limiter = new RateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -52,13 +47,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(config.cookieParserSecret));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session());
+// app.use(session());
 
 // app.use(passport.initialize());
 // app.use(passport.session());
 
 app.use(cors());
 app.use(limiter);
+
+// app.use((req, res, next) => {
+//   // https://sfgmc.auth0.com/userinfo
+
+// })
 
 app.use('/', index);
 app.use('/auth', auth);

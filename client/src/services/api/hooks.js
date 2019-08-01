@@ -55,3 +55,37 @@ export const useGetEntriesByContentType = (
     loading
   };
 };
+
+// export const useGetEntriesByFilters = ({
+//   contentTypes,
+//   tags,
+//   filters,
+//   searchTerm
+// }) => {
+//   if (loading || error) {
+//     return {
+//       data: [],
+//       loading,
+//       error
+//     };
+//   }
+//   const { data, error: queryError, loading: queryLoading } = useQuery(
+//     GET_FILTERED_RECORDS_QUERY(filters, searchTerm, contentTypes, tags)
+//   );
+//   return {
+//     data,
+//     error: queryError,
+//     loading: queryLoading
+//   };
+// };
+
+// // https://github.com/codemeasandwich/graphql-query-builder
+
+// export const getEntries = ({ contentType, skip, limit, filters }) => {
+//   const filter = {};
+//   let entry = new Query(`${contentType}Collection`, filter);
+//   entry.find(contentType.fields.map(f => f.name));
+//   console.log(entry);
+//   const { data, error, loading } = useQuery(entry);
+//   return { data, error, loading };
+// };
