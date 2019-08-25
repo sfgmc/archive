@@ -10,13 +10,18 @@
   "author": "Aster Haven <npm@therebelrobot.com> (@therebelrobot)",
   "license": "ISC",
   "dependencies": {
+    "auth0": "^2.18.0",
     "dotenv": "^8.0.0",
+    "graphql": "^14.4.2",
+    "graphql-operation-to-pojo": "^1.0.4",
+    "json-to-graphql-query": "^1.9.0",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
     "micro-dev": "^3.0.0",
     "micro-fork": "^2.0.0",
     "micro-hoofs": "^0.0.5",
     "micro-visualize": "^3.0.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
   }
 }

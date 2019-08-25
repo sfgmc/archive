@@ -1,32 +1,27 @@
-import React, { Fragment, useEffect, useState } from 'react';
-
-import { Block, Col, Row, InlineRow } from 'jsxstyle';
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import ReactPlayer from 'react-player';
-import { Gallery } from '../components/Gallery';
+import {
+  Alert,
+  Heading,
+  Icon,
+  Menu,
+  Pane,
+  Popover,
+  Position,
+  toaster,
+  Tooltip
+} from 'evergreen-ui';
+import { Block, Col, InlineRow, Row } from 'jsxstyle';
 import * as moment from 'moment';
-// import Component from '@reactions/component';
-// import ReactImageMagnify from 'react-image-magnify';
-import YouTube from 'react-youtube';
-import * as queryString from 'query-string';
-// import Router from 'next/router';
-import GoogleMapReact from 'google-map-react';
+import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
-import { uniqBy, sortBy } from 'lodash';
-
-import { Alert, Icon, Popover, Menu, Position, toaster, Tooltip, Pane, Heading } from 'evergreen-ui';
-
-import { EditBody } from './EditBody';
-
 import { Badge } from '../components/Badge';
-import { Pin } from '../components/Pin';
+import { Gallery } from '../components/Gallery';
 import { Spacer } from '../components/Spacer';
-import { Card } from '../components/Card';
 // import { normalizeEntry } from '../lib/searchState';
-
 // import { googleMapsAPItoken } from '../lib/googleMaps';
 // import { mediaQueries, getYoutubeId } from '../lib/utils';
 import { DisplayEntry } from './DisplayEntry';
+import { EditBody } from './EditBody';
+
 // import { useArchiveStore, useEntry } from '../lib/ArchiveStore';
 
 const mediaQueries = null;
@@ -55,12 +50,16 @@ export const EntryBody = ({ entryId }) => {
   console.log(entry, fields, meta);
   return (
     <Fragment>
-      {isInEditMode && <EditBody entry={entry} exitEditMode={() => setIsInEditMode(false)} />}
+      {isInEditMode && (
+        <EditBody entry={entry} exitEditMode={() => setIsInEditMode(false)} />
+      )}
       {!isInEditMode && (
         <Col className="entryBody">
           <Pane zIndex={1} flexShrink={0} elevation={0} backgroundColor="white">
             <Pane padding={16}>
-              <Heading size={600}>{fields.locationName || fields.name || fields.title}</Heading>
+              <Heading size={600}>
+                {fields.locationName || fields.name || fields.title}
+              </Heading>
             </Pane>
           </Pane>
           <Row
@@ -71,21 +70,30 @@ export const EntryBody = ({ entryId }) => {
             padding={8}
             flexWrap="wrap"
           >
-            {meta.contentType && (meta.contentType.sys.id === 'story' || meta.contentType.sys.id === 'media') && (
-              <Fragment>
-                <InlineRow flexShrink={0}>Date: {moment(fields.date).format('DD MMM YYYY')}</InlineRow>
-                <Spacer />
-              </Fragment>
-            )}
+            {meta.contentType &&
+              (meta.contentType.sys.id === 'story' ||
+                meta.contentType.sys.id === 'media') && (
+                <Fragment>
+                  <InlineRow flexShrink={0}>
+                    Date: {moment(fields.date).format('DD MMM YYYY')}
+                  </InlineRow>
+                  <Spacer />
+                </Fragment>
+              )}
             <InlineRow flexShrink={0} alignItems="center" flexWrap="wrap">
               Tags:
               <Spacer />
               {(fields.tags || []).map((tag, index) =>
                 tag ? (
-                  <Badge cursor="pointer" color="orange" marginRight={8} key={`entry-body-tags-${meta.id}-${index}`}>
+                  <Badge
+                    cursor="pointer"
+                    color="orange"
+                    marginRight={8}
+                    key={`entry-body-tags-${meta.id}-${index}`}
+                  >
                     {tag.label}
                   </Badge>
-                ) : null,
+                ) : null
               )}
               {(!fields.tags || !fields.tags.length || !fields.tags[0]) && (
                 <Badge cursor="pointer" color="neutral" marginRight={8}>
@@ -96,7 +104,12 @@ export const EntryBody = ({ entryId }) => {
             <Block flex={1} />
             <Row minHeight="100%" alignItems="center">
               <Tooltip content="Suggest an Edit">
-                <Icon icon="edit" color="gray" cursor="pointer" onClick={() => setIsInEditMode(true)} />
+                <Icon
+                  icon="edit"
+                  color="gray"
+                  cursor="pointer"
+                  onClick={() => setIsInEditMode(true)}
+                />
               </Tooltip>
               <Spacer />
               <Popover
@@ -104,12 +117,24 @@ export const EntryBody = ({ entryId }) => {
                 content={
                   <Menu>
                     <Menu.Group title="Flag as...">
-                      <Menu.Item onSelect={() => toaster.notify('Inappropriate')}>Inappropriate</Menu.Item>
-                      <Menu.Item onSelect={() => toaster.notify('Incomplete')}>Incomplete</Menu.Item>
-                      <Menu.Item onSelect={() => toaster.notify('Untagged')} secondaryText="⌘R">
+                      <Menu.Item
+                        onSelect={() => toaster.notify('Inappropriate')}
+                      >
+                        Inappropriate
+                      </Menu.Item>
+                      <Menu.Item onSelect={() => toaster.notify('Incomplete')}>
+                        Incomplete
+                      </Menu.Item>
+                      <Menu.Item
+                        onSelect={() => toaster.notify('Untagged')}
+                        secondaryText="⌘R"
+                      >
                         Untagged
                       </Menu.Item>
-                      <Menu.Item onSelect={() => toaster.notify('Untranscribed')} secondaryText="⌘R">
+                      <Menu.Item
+                        onSelect={() => toaster.notify('Untranscribed')}
+                        secondaryText="⌘R"
+                      >
                         Untranscribed
                       </Menu.Item>
                     </Menu.Group>
@@ -130,15 +155,24 @@ export const EntryBody = ({ entryId }) => {
             smHeight="80vh"
             padding={16}
           >
-            <DisplayEntry entry={entry} onCollectionSelect={id => archive.methods.setActiveEntry(id)} />
+            <DisplayEntry
+              entry={entry}
+              onCollectionSelect={id => archive.methods.setActiveEntry(id)}
+            />
 
             {!fields.accessibilityCaption && (
-              <Alert intent="warning" title="This media has not been fully transcribed" marginBottom={32}>
+              <Alert
+                intent="warning"
+                title="This media has not been fully transcribed"
+                marginBottom={32}
+              >
                 <Row alignItems="center">
                   <Block flex={1} fontSize={12} color="#999" lineHeight="12px">
-                    We strive to have all media in our archive accessible, both to searches as well as to those who use
-                    screen-reading technology. If you have a couple minutes, we could really use your help in assisting
-                    the automated transcription of this media.
+                    We strive to have all media in our archive accessible, both
+                    to searches as well as to those who use screen-reading
+                    technology. If you have a couple minutes, we could really
+                    use your help in assisting the automated transcription of
+                    this media.
                   </Block>
                   <Col flexShrink={0}>
                     <Block
@@ -165,7 +199,11 @@ export const EntryBody = ({ entryId }) => {
                 <Block>Linked Entries</Block>
                 <Gallery>
                   {linkedEntries.map(entryId => (
-                    <Card isInDialog entryId={entryId} onClick={() => archive.methods.setActiveEntry(entryId)} />
+                    <Card
+                      isInDialog
+                      entryId={entryId}
+                      onClick={() => archive.methods.setActiveEntry(entryId)}
+                    />
                   ))}
                 </Gallery>
               </Fragment>

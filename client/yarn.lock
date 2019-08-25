@@ -5052,6 +5052,11 @@ json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
+json-to-graphql-query@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/json-to-graphql-query/-/json-to-graphql-query-1.9.0.tgz#65e2099b27195b4bb7cace474e4b6910de6bb8a8"
+  integrity sha512-SXZzxv5J7AQgdmJBkq94mIStjDxuWmecLhsNYTENm+Fzil1qyt6PiKDvq4cHjFJKXB6Qp4TedZxElyRHr7oPYw==
+
 json3@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
@@ -7151,6 +7156,11 @@ react-required-if@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-required-if/-/react-required-if-1.0.1.tgz#f41d06bebb75346c206cd1de8dc0ef5b7c8f9abd"
   integrity sha1-9B0Gvrt1NGwgbNHejcDvW3yPmr0=
+
+react-responsive-masonry@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-responsive-masonry/-/react-responsive-masonry-2.0.0.tgz#6a253ec60f519426b4baf54cfffce8e1873ee11c"
+  integrity sha512-w6/25RQw7/rKKTobyMIF8mVxNy87eap3FFbuGNff4eEoYHGqSJ+xwpZSFGH61kMBRxODThhQyitiNmwZzBANjA==
 
 react-router-dom@^4.2.0, react-router-dom@^4.3.1:
   version "4.3.1"

@@ -1,7 +1,11 @@
 /* @jsx jsx */
 import { useQuery } from 'react-apollo-hooks';
 import { capitalize } from '../../utils';
-import { GET_INTROSPECTION, GET_RECORD_LIST_QUERY } from './queries';
+import {
+  GET_FILTERED_RECORDS_QUERY,
+  GET_INTROSPECTION,
+  GET_RECORD_LIST_QUERY
+} from './queries';
 
 export const ensureTokenAttachment = () => {};
 
@@ -56,28 +60,54 @@ export const useGetEntriesByContentType = (
   };
 };
 
-// export const useGetEntriesByFilters = ({
-//   contentTypes,
-//   tags,
-//   filters,
-//   searchTerm
-// }) => {
-//   if (loading || error) {
-//     return {
-//       data: [],
-//       loading,
-//       error
-//     };
-//   }
-//   const { data, error: queryError, loading: queryLoading } = useQuery(
-//     GET_FILTERED_RECORDS_QUERY(filters, searchTerm, contentTypes, tags)
-//   );
-//   return {
-//     data,
-//     error: queryError,
-//     loading: queryLoading
-//   };
-// };
+export const useGetEntriesByFilters = ({
+  contentTypes,
+  tags,
+  filters,
+  searchTerm,
+  loading,
+  error,
+  skip,
+  limit
+}) => {
+  const query = GET_FILTERED_RECORDS_QUERY(
+    filters,
+    searchTerm,
+    contentTypes,
+    tags,
+    skip,
+    limit
+  );
+  console.log(query);
+  const {
+    data: queryData,
+    error: queryError,
+    loading: queryLoading
+  } = useQuery(query);
+  let data = queryData;
+
+  // concat data
+  if (!queryError && !queryLoading) {
+    data = [];
+    for (const key of Object.keys(queryData)) {
+      if (!queryData[key].items) continue;
+      const collection = queryData[key].items.map(i => ({
+        ...i,
+        contentType: key.split('Collection')[0]
+      }));
+      data = data.concat(collection);
+    }
+
+    // run sort
+    data = data.sort((a, b) => (a.sys.id > b.sys.id ? 1 : -1));
+  }
+
+  return {
+    data,
+    error: error || queryError,
+    loading: loading || queryLoading
+  };
+};
 
 // // https://github.com/codemeasandwich/graphql-query-builder
 
