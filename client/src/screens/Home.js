@@ -1,9 +1,12 @@
 import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
+import { SideSheet } from 'evergreen-ui';
 import { Block, Col, Row } from 'jsxstyle';
 import React from 'react';
 import 'react-calendar/dist/Calendar.css';
 import { withRouter } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import App from '../components/App';
+import { EntryBody } from '../components/EntryBody';
 import { Featured } from '../components/Featured';
 import { Footer } from '../components/Footer';
 import { Menu } from '../components/Menu';
@@ -12,14 +15,15 @@ import '../css/Main.css';
 import cpntentfulLogo from '../images/contentful-logo.png';
 import glbthsLogo from '../images/glbths-logo.png';
 import logo from '../images/logo-invert.svg';
+// import history from 'history';
 
 export const Home = withRouter(props => {
-  React.useEffect(() => {
-    if (window.location.pathname !== '/') {
-      // this is needed for auth0 login redirect on protected routes
-      props.history.push(window.location.pathname);
-    }
-  }, [props.location]);
+  // React.useEffect(() => {
+  //   if (window.location.pathname !== '/') {
+  //     // this is needed for auth0 login redirect on protected routes
+  //     props.history.push(window.location.pathname);
+  //   }
+  // }, [props.location]);
   return (
     <App>
       <div>
@@ -79,7 +83,26 @@ export const Home = withRouter(props => {
             </p>
           </header>
           <Featured />
-          <Search />
+          <Switch>
+            <Route
+              exact
+              path={`/:contentType/:entryId`}
+              component={({ match }) => (
+                <SideSheet
+                  width="80vw"
+                  isShown={true}
+                  onCloseComplete={() => props.history.push('/')}
+                >
+                  <EntryBody
+                    contentType={match.params.contentType}
+                    entryId={match.params.entryId}
+                  />
+                </SideSheet>
+              )}
+            />
+            <Route exact path={`/`} component={() => <Search />} />
+          </Switch>
+
           <footer className="major container medium">
             <h3>We need your help</h3>
             <p>

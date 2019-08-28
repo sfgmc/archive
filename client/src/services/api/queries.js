@@ -7,13 +7,16 @@ export const GET_INTROSPECTION = () => gql`
   ${getIntrospectionQuery()}
 `;
 
+const defaultQuery = { __schema: { types: { kind: true } } };
+
 const fieldBlackList = ['linkedFrom'];
 const contentTypeBlackList = [
   'asset',
   'fieldPermissions',
   'tags',
   'collection',
-  'suggestedEdits'
+  'suggestedEdits',
+  'events'
 ];
 const listAllFieldWhiteList = [
   'name',
@@ -50,6 +53,24 @@ const replacement = {
     sys: {
       id: true
     }
+  }
+};
+
+const dynamicReplacement = {
+  linkedFrom: ({ contentTypes, currentContentType }) => {
+    const collections = {};
+    for (const contentType of contentTypes) {
+      console.log('contentType', contentType);
+      if (
+        contentTypeBlackList.includes(contentType.name) ||
+        contentType.name === currentContentType
+      )
+        continue;
+      collections[`${contentType.name}Collection`] = {
+        items: { sys: { id: true } }
+      };
+    }
+    return collections;
   }
 };
 
@@ -173,7 +194,51 @@ export const GET_FILTERED_RECORDS_QUERY = (
     // default to all contentTypes
   }
   if (!Object.keys(request.query).length) {
-    request.query = { __schema: { types: { kind: true } } };
+    request.query = defaultQuery;
+  }
+  const stringRequest = json2gql(request, { pretty: true });
+  console.log(request, stringRequest);
+  return gql`
+    ${stringRequest}
+  `;
+};
+
+export const GET_QUERY_BY_ID = ({
+  contentTypes = [],
+  entryId,
+  contentType
+}) => {
+  const request = { query: {} };
+  request.query[contentType] = {
+    __args: {
+      id: entryId
+    }
+  };
+
+  const fullContentType = contentTypes.find(ct => ct.name === contentType);
+  if (!fullContentType) {
+    request.query = defaultQuery;
+    const stringRequest = json2gql(request, { pretty: true });
+    return gql`
+      ${stringRequest}
+    `;
+  }
+  const queryName = fullContentType.name.toLowerCase();
+  for (const field of fullContentType.fields) {
+    console.log(field.name);
+    let fieldName = field.name;
+    if (fieldName.includes('Collection')) {
+      request.query[queryName][fieldName] = { items: { sys: { id: true } } };
+      continue;
+    }
+    if (dynamicReplacement[fieldName]) {
+      request.query[queryName][fieldName] = dynamicReplacement[fieldName]({
+        contentTypes,
+        currentContentType: contentType
+      });
+      continue;
+    }
+    request.query[queryName][fieldName] = replacement[fieldName] || true;
   }
   const stringRequest = json2gql(request, { pretty: true });
   console.log(request, stringRequest);

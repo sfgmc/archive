@@ -2,9 +2,9 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { useGetContentTypes } from '../../services/api/hooks';
-import { RecordList } from './RecordList';
-import { Sidebar } from './Sidebar';
+import { RecordList } from '../components/Dashboard/RecordList';
+import { Sidebar } from '../components/Dashboard/Sidebar';
+import { useGetContentTypes } from '../services/api/hooks';
 
 export const Dashboard = ({ onLogout }) => {
   const { contentTypes, error, loading } = useGetContentTypes();

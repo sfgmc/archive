@@ -1,12 +1,10 @@
 import { Heading, Switch, TextInput } from 'evergreen-ui';
-import React from 'react';
-import { Card } from '../components/Card';
-import { Spacer } from '../components/Spacer';
-
 // Look into ag-grid for the actual table
 //github.com/ag-grid/ag-grid
-
-https: import { Block, Col, Row } from 'jsxstyle';
+import { Col, Row } from 'jsxstyle';
+import React from 'react';
+import { Spacer } from '../components/Spacer';
+import { DisplayCard } from './DisplayCard';
 
 const resolvefield = (fieldName, field) => {
   let element;
@@ -15,7 +13,7 @@ const resolvefield = (fieldName, field) => {
       return (
         <Row flex={1}>
           {field.map(alumni => (
-            <Card isInDialog entry={alumni} onClick={() => null} />
+            <DisplayCard isInDialog entry={alumni} onClick={() => null} />
           ))}
         </Row>
       );
@@ -23,7 +21,7 @@ const resolvefield = (fieldName, field) => {
       return (
         <Row flex={1}>
           {field.map(location => (
-            <Card isInDialog entry={location} onClick={() => null} />
+            <DisplayCard isInDialog entry={location} onClick={() => null} />
           ))}
         </Row>
       );
@@ -31,7 +29,7 @@ const resolvefield = (fieldName, field) => {
       return (
         <Row flex={1}>
           {field.map(story => (
-            <Card isInDialog entry={story} onClick={() => null} />
+            <DisplayCard isInDialog entry={story} onClick={() => null} />
           ))}
         </Row>
       );

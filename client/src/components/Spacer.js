@@ -1,6 +1,6 @@
-import React from "react";
 import { Block } from 'jsxstyle';
 import { isNumber } from 'lodash';
+import React from 'react';
 
 const sizes = {
   xxs: 4,
@@ -9,16 +9,20 @@ const sizes = {
   m: 14,
   l: 20,
   xl: 32,
-  xxl: 45,
+  xxl: 45
 };
 
 export const Spacer = ({
   size = 'm',
   with: withProp = 'both', // tslint doesn't like the use of 'with', since it's an obscure js block operation
+  flex
 }) => {
+  if (flex) {
+    return <Block flex={1} />;
+  }
   if (!sizes[size] && isNumber(size)) {
     console.warn(
-      `You seem to be using a non-standard size in Spacer. If ${size} is needed long-term, please create a new option for it.`,
+      `You seem to be using a non-standard size in Spacer. If ${size} is needed long-term, please create a new option for it.`
     );
   }
   const propAdditions = {};

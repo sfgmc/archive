@@ -4,6 +4,7 @@ import { capitalize } from '../../utils';
 import {
   GET_FILTERED_RECORDS_QUERY,
   GET_INTROSPECTION,
+  GET_QUERY_BY_ID,
   GET_RECORD_LIST_QUERY
 } from './queries';
 
@@ -106,6 +107,33 @@ export const useGetEntriesByFilters = ({
     data,
     error: error || queryError,
     loading: loading || queryLoading
+  };
+};
+
+export const useGetEntryById = ({ entryId, contentType }) => {
+  const {
+    contentTypes,
+    error: ctError,
+    loading: ctLoading
+  } = useGetContentTypes();
+
+  const query = GET_QUERY_BY_ID({ entryId, contentTypes, contentType });
+  const {
+    data: queryData,
+    error: queryError,
+    loading: queryLoading
+  } = useQuery(query);
+  if (ctError || ctLoading || queryError || queryLoading) {
+    return {
+      data: null,
+      error: ctError || queryError,
+      loading: ctLoading || queryLoading
+    };
+  }
+  let data = queryData[contentType];
+  data.contentType = contentType;
+  return {
+    data
   };
 };
 

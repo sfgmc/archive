@@ -1,20 +1,22 @@
 /* @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
-import { IconButton, SearchInput, TextInputField } from 'evergreen-ui';
-import { Block, Col, InlineRow, Row } from 'jsxstyle';
+import { SearchInput } from 'evergreen-ui';
+import { Block, Col, Row } from 'jsxstyle';
 import React from 'react';
 import 'react-calendar/dist/Calendar.css';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { withRouter } from 'react-router';
 import {
   useGetContentTypes,
   useGetEntriesByFilters
 } from '../services/api/hooks';
 import { DisplayCard } from './DisplayCard';
 import { FilterFields } from './FilterFields';
+import { Pagination } from './Pagination';
 import { Spacer } from './Spacer';
 
-export const Search = props => {
+export const Search = withRouter(props => {
   // const archive = useArchiveStore();
   // console.log({ entriesToShow: archive.store.entriesToShow });
 
@@ -83,57 +85,45 @@ export const Search = props => {
         </Col>
       </Row>
       <Spacer />
-      <Row justifyContent="center">
-        <InlineRow alignItems="center" marginTop={-20}>
-          <IconButton
-            icon="caret-left"
-            disabled={page === 1}
-            onClick={() => setPage(page - 1)}
-          />
-          <Spacer />
-          <TextInputField
-            width={40}
-            textAlign="center"
-            align="center"
-            hint="Page"
-            value={page}
-            marginBottom={0}
-            marginTop={20}
-            onChange={e => setPage(Number(e.target.value))}
-          />
-          <Spacer />
-          <IconButton icon="caret-right" onClick={() => setPage(page + 1)} />
-        </InlineRow>
-        <Spacer />
-        <InlineRow>
-          <TextInputField
-            width={80}
-            textAlign="center"
-            align="center"
-            hint="Entries per page"
-            value={limit}
-            marginBottom={0}
-            marginTop={20}
-            onChange={e => setLimit(Number(e.target.value))}
-          />
-        </InlineRow>
-      </Row>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        limit={limit}
+        setLimit={setLimit}
+      />
       <Spacer />
       <hr />
       {entriesLoading && <div>Loading...</div>}
       {entriesError && <div>An Error Occurred loading entries.</div>}
-      {entriesData.length && (
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
-          <Masonry>
-            {entriesData.map((entry, index) => (
-              <DisplayCard entry={entry} onClick={e => null} />
-            ))}
-          </Masonry>
-        </ResponsiveMasonry>
+      {Boolean(entriesData.length) && (
+        <React.Fragment>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+          >
+            <Masonry>
+              {entriesData.map((entry, index) => (
+                <DisplayCard
+                  entry={entry}
+                  onClick={e =>
+                    props.history.push(`/${entry.contentType}/${entry.sys.id}`)
+                  }
+                />
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+          <Spacer />
+          <Pagination
+            page={page}
+            setPage={setPage}
+            limit={limit}
+            setLimit={setLimit}
+          />
+          <Spacer />
+        </React.Fragment>
       )}
     </div>
   );
-};
+});
 
 const galleryCss = css`
   display: flex;
