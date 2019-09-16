@@ -103,7 +103,7 @@ const FilterField = ({
         : typeof availableFilterTypes[key] !== 'string' ||
           Boolean(omitType[key])
   );
-  console.log({ optionsForTypeDropdown });
+
   return (
     <Row width="100%" alignItems="center">
       {isFirst && <Text>Filter By</Text>}
@@ -160,7 +160,7 @@ const FilterField = ({
               if (key.id) {
                 return { label: key.name, value: key.id };
               }
-              console.log(key, availableFilterTypes[key]);
+
               return { label: availableFilterTypes[key], value: key };
             })}
             selected={filterType}
@@ -206,7 +206,6 @@ const FilterField = ({
                 options={reject(filterLists.tags, tag =>
                   blacklists.tags.includes(tag.sys.id)
                 ).map(tag => {
-                  console.log({ tag });
                   return { label: tag.fields.label, value: tag.sys.id };
                 })}
                 selected={filterValue}
@@ -252,7 +251,6 @@ const FilterField = ({
                 height={24}
                 checked={filterValue}
                 onChange={e => {
-                  console.log(e.target.checked);
                   dispatch({ field: 'value', value: e.target.checked });
                 }}
               />
@@ -285,11 +283,11 @@ const FilterField = ({
 export const FilterFields = ({
   filters = [],
   filterLists = { contentTypes: [], tags: [] },
-  onFilterAdd = filters => console.log(filters),
-  onFilterRemove = filters => console.log(filters)
+  onFilterAdd = filters => null,
+  onFilterRemove = filters => null
 }) => {
   const [counter, setCounter] = useState(0);
-  console.log({ filters });
+
   return (
     <Col width="100%">
       {!filters.length && (

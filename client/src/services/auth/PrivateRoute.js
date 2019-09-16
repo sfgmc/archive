@@ -5,8 +5,6 @@ import { useAuth0 } from './';
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const { isAuthenticated, loginWithRedirect, loading } = useAuth0();
 
-  console.log({ isAuthenticated });
-
   useEffect(() => {
     if (loading) return;
     const fn = async () => {

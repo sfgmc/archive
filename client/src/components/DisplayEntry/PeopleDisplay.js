@@ -1,13 +1,13 @@
 import { Heading } from 'evergreen-ui';
 import { Block, Col, Row } from 'jsxstyle';
-import React from 'react';
-import { Spacer } from '../Spacer';
-import { headshot, log } from './index';
 import moment from 'moment';
-export const PeopleDisplay = ({ entry, fields, meta }) => {
-  log('PeopleDisplay render', fields);
-  // const { file: headshot } = useFile(fields.headshot);
-  log('headshot', headshot);
+import React from 'react';
+import genericProfilePic from '../../images/generic-profile.svg';
+import { Spacer } from '../Spacer';
+export const PeopleDisplay = ({ entry, meta }) => {
+  console.log('PeopleDisplay render', entry);
+  // const { file: headshot } = useFile(entry.headshot);
+  // console.log('headshot', headshot);
   return (
     <Row>
       <Col alignItems="center" justifyContent="center" flexShrink={0}>
@@ -16,52 +16,52 @@ export const PeopleDisplay = ({ entry, fields, meta }) => {
           height={200}
           backgroundColor="#ddd"
           borderRadius={5}
-          backgroundImage={`url(${headshot.url ||
-            '/static/images/generic-profile.svg'})`}
-          backgroundSize={fields.headshot ? 'cover' : '75%'}
+          backgroundImage={`url(${(entry.headshot && entry.headshot.url) ||
+            genericProfilePic})`}
+          backgroundSize={entry.headshot ? 'cover' : '75%'}
           backgroundPosition="center center"
           backgroundRepeat="no-repeat"
         />
       </Col>
       <Spacer size={18} />
       <Col flexShrink={0} flex={1}>
-        <Heading size={600}>{fields.name}</Heading>
+        <Heading size={600}>{entry.name}</Heading>
         <Block flex={1} />
         <Row justifyContent="space-between">
           <Block>Status:</Block>
-          <Block>{fields.status}</Block>
+          <Block>{entry.status}</Block>
         </Row>
-        {fields.dateOfJoin && (
+        {entry.dateOfJoin && (
           <Row justifyContent="space-between">
             <Block>Date of Join: </Block>
-            <Block>{moment(fields.dateOfJoin).format('MMMM YYYY')}</Block>
+            <Block>{moment(entry.dateOfJoin).format('MMMM YYYY')}</Block>
           </Row>
         )}
-        {fields.dateOfLeave && (
+        {entry.dateOfLeave && (
           <Row justifyContent="space-between">
             <Block>Date of Leave: </Block>
-            <Block>{moment(fields.dateOfLeave).format('MMMM YYYY')}</Block>
+            <Block>{moment(entry.dateOfLeave).format('MMMM YYYY')}</Block>
           </Row>
         )}
-        {fields.dateOfDeath && (
+        {entry.dateOfDeath && (
           <Row justifyContent="space-between">
             <Block>Date of Death: </Block>
-            <Block>{moment(fields.dateOfDeath).format('MMMM YYYY')}</Block>
+            <Block>{moment(entry.dateOfDeath).format('MMMM YYYY')}</Block>
           </Row>
         )}
-        {fields.barObituaryLink && (
+        {entry.barObituaryLink && (
           <Row justifyContent="space-between">
             <Block>
-              <a target="_blank" href={fields.barObituaryLink}>
+              <a target="_blank" href={entry.barObituaryLink}>
                 BAR Obituary
               </a>
             </Block>
           </Row>
         )}
-        {fields.isFifthSection && fields.chorusNumber && (
+        {entry.isFifthSection && entry.chorusNumber && (
           <Row justifyContent="space-between">
             <Block>Chorus Number: </Block>
-            <Block>{fields.chorusNumber}</Block>
+            <Block>{entry.chorusNumber}</Block>
           </Row>
         )}
         <Row />

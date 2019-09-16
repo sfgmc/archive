@@ -18,7 +18,7 @@ import { Spacer } from './Spacer';
 
 export const Search = withRouter(props => {
   // const archive = useArchiveStore();
-  // console.log({ entriesToShow: archive.store.entriesToShow });
+  //
 
   const [filters, setFilters] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -42,7 +42,6 @@ export const Search = withRouter(props => {
     skip: limit * (page - 1)
   });
 
-  console.log(entriesData, entriesError, entriesLoading);
   return (
     <div className="box alt container" id="searchBox">
       <Block
@@ -74,11 +73,9 @@ export const Search = withRouter(props => {
             filters={filters}
             filterLists={{ contentTypes, tags: [] }}
             onFilterAdd={filterList => {
-              console.log(filterList);
               setFilters(filterList);
             }}
             onFilterRemove={filterList => {
-              console.log(filterList);
               setFilters(filterList);
             }}
           />

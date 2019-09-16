@@ -14,12 +14,8 @@ export const StoryDisplay = ({ entry, fields, meta, collections }) => {
       overflowY="auto"
       props={{
         contentEditable: true,
-        onInput: e => {
-          console.log(e);
-        },
-        onBlur: e => {
-          console.log(e);
-        },
+        onInput: e => {},
+        onBlur: e => {},
         dangerouslySetInnerHTML: {
           __html: documentToHtmlString(entry.rawStory)
         }

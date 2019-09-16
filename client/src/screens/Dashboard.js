@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import App from '../components/App';
 import { RecordList } from '../components/Dashboard/RecordList';
 import { Sidebar } from '../components/Dashboard/Sidebar';
 import { useGetContentTypes } from '../services/api/hooks';
@@ -10,7 +11,7 @@ export const Dashboard = ({ onLogout }) => {
   const { contentTypes, error, loading } = useGetContentTypes();
   const _ = React.useState();
   return (
-    <div>
+    <App>
       {loading && <div>Loading</div>}
       {error && <div>Error {error.message}</div>}
       {Boolean(contentTypes.length) && (
@@ -32,6 +33,6 @@ export const Dashboard = ({ onLogout }) => {
           </Switch>
         </div>
       )}
-    </div>
+    </App>
   );
 };

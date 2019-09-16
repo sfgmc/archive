@@ -100,9 +100,8 @@ export const Home = withRouter(props => {
                 </SideSheet>
               )}
             />
-            <Route exact path={`/`} component={() => <Search />} />
           </Switch>
-
+          <Search />
           <footer className="major container medium">
             <h3>We need your help</h3>
             <p>

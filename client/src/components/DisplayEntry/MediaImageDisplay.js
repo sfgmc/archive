@@ -5,21 +5,21 @@ import { CollectionList } from './CollectionList';
 import { file, log } from './index';
 export const MediaImageDisplay = ({
   entry,
-  fields,
   meta,
   collections,
   onCollectionSelect
 }) => {
   log('MediaImageDisplay render');
-  // const { file } = useFile(fields.file);
+  // const { file } = useFile(entry.file);
   log('file', file);
+
   return (
     <Row>
       {!!collections.length && (
         <CollectionList
           collections={collections}
           onCollectionSelect={onCollectionSelect}
-          currentId={meta.id}
+          currentId={entry.sys.id}
         />
       )}
       <Block flex={1} padding={8}>
@@ -29,14 +29,14 @@ export const MediaImageDisplay = ({
               maxWidth: '50%'
             },
             smallImage: {
-              alt: fields.title,
+              alt: entry.title,
               isFluidWidth: true,
-              src: file.url
+              src: entry.file.url
             },
             largeImage: {
-              src: file.url,
-              width: file.details && file.details.image.width,
-              height: file.details && file.details.image.height
+              src: entry.file.url,
+              width: entry.file.details && entry.file.details.image.width,
+              height: entry.file.details && entry.file.details.image.height
             },
             isHintEnabled: true,
             shouldHideHintAfterFirstActivation: false

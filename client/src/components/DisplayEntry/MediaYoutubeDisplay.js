@@ -15,7 +15,7 @@ export const MediaYoutubeDisplay = ({
   }
   return (
     <Row height={500}>
-      {!!collections.length && (
+      {Boolean(collections) && Boolean(collections.length) && (
         <CollectionList
           collections={collections}
           onCollectionSelect={onCollectionSelect}

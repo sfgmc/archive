@@ -59,7 +59,6 @@ export const Auth0Provider = ({
       try {
         await auth0Client.loginWithPopup(params);
       } catch (error) {
-        console.error(error);
       } finally {
         setPopupOpen(false);
       }
@@ -78,7 +77,7 @@ export const Auth0Provider = ({
     await auth0Client.handleRedirectCallback();
     const token = await auth0Client.getTokenSilently();
     const user = await auth0Client.getUser();
-    console.log({ user, token });
+
     setLoading(false);
     setIsAuthenticated(true);
     setUser(user);

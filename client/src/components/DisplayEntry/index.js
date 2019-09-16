@@ -1,5 +1,5 @@
 import { Block, Col } from 'jsxstyle';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { EnsamblesDisplay } from './EnsamblesDisplay';
 import { EventsDisplay } from './EventsDisplay';
@@ -39,7 +39,7 @@ export const TabCol = styled(Col)`
   }
 `;
 
-export const DisplayEntry = ({ entry, onCollectionSelect }) => {
+export const DisplayEntry = ({ entry, collections, onCollectionSelect }) => {
   log('DisplayEntry render', entry);
   if (!entry) {
     return null;
@@ -48,12 +48,12 @@ export const DisplayEntry = ({ entry, onCollectionSelect }) => {
   const entryDisplay =
     entry.contentType === 'media'
       ? DisplayTypes.media[entry.type]
-      : DisplayTypes[meta.contentType];
+      : DisplayTypes[entry.contentType];
+
   if (!entryDisplay) {
     return null;
   }
 
-  const [collections, setCollections] = useState([]);
   // useEffect(() => {
   //   if (fields.collections) {
   //     // getCollection
@@ -77,7 +77,7 @@ export const DisplayEntry = ({ entry, onCollectionSelect }) => {
   //     });
   //   }
   // }, [fields.collections]);
-  console.log('collections', collections);
+
   // end useCollections
 
   const { Display } = entryDisplay;

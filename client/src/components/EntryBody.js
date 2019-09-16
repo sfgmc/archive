@@ -16,7 +16,11 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { Spacer } from '../components/Spacer';
-import { useGetEntryById } from '../services/api/hooks';
+import {
+  useGetCollectionsByEntry,
+  useGetEntryById,
+  useGetLinkedEntriesByEntry
+} from '../services/api/hooks';
 import { mediaQueries } from '../utils';
 import { Badge } from './Badge';
 import { DisplayCard } from './DisplayCard';
@@ -36,19 +40,22 @@ const ObjectFitBlock = styled(Block)`
 `;
 
 export const EntryBody = withRouter(({ contentType, entryId, history }) => {
+  console.log('EntryBody');
   const [isInEditMode, setIsInEditMode] = useState(false);
-  const [linkedEntries, setLinkedEntries] = useState([]);
-
-  // const archive = useArchiveStore();
 
   const { data: entry, error, loading } = useGetEntryById({
     entryId,
     contentType
   });
 
+  const {
+    data: linkedEntries,
+    error: linkedError,
+    loading: linkedLoading
+  } = useGetLinkedEntriesByEntry({ entry });
+  const { data: collections } = useGetCollectionsByEntry({ entry });
   // const { entry, entry = {}, entry = {} } = useEntry(entryId);
 
-  console.log(entry);
   // return null;
   return (
     <Fragment>
@@ -155,6 +162,7 @@ export const EntryBody = withRouter(({ contentType, entryId, history }) => {
             padding={16}
           >
             <DisplayEntry
+              collections={collections}
               entry={entry}
               onCollectionSelect={id => history.push(`/entry/${id}`)}
             />
