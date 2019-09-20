@@ -2,9 +2,9 @@ import GoogleMapReact from 'google-map-react';
 import { Block } from 'jsxstyle';
 import React from 'react';
 import { Pin } from '../Pin';
-import { googleMapsAPItoken, log } from './index';
-export const LocationDisplay = ({ entry, fields, meta }) => {
-  log('LocationDisplay render');
+// import { googleMapsAPItoken, log } from './index';
+export const LocationDisplay = ({ entry}) => {
+  console.log('LocationDisplay render', entry);
   if (meta.contentType.sys.id !== 'locations') {
     return null;
   }
@@ -13,8 +13,8 @@ export const LocationDisplay = ({ entry, fields, meta }) => {
       <GoogleMapReact
         bootstrapURLKeys={{ key: googleMapsAPItoken }}
         defaultCenter={{
-          lat: fields.geolocation.lat,
-          lng: fields.geolocation.lon
+          lat: entry.geolocation.lat,
+          lng: entry.geolocation.lon
         }}
         defaultZoom={12}
       >
