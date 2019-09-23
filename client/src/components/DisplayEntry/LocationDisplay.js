@@ -2,10 +2,11 @@ import GoogleMapReact from 'google-map-react';
 import { Block } from 'jsxstyle';
 import React from 'react';
 import { Pin } from '../Pin';
+import { googleMapsAPItoken } from './.env';
 // import { googleMapsAPItoken, log } from './index';
-export const LocationDisplay = ({ entry}) => {
+export const LocationDisplay = ({ entry }) => {
   console.log('LocationDisplay render', entry);
-  if (meta.contentType.sys.id !== 'locations') {
+  if (entry.contentType.sys.id !== 'locations') {
     return null;
   }
   return (
@@ -18,7 +19,7 @@ export const LocationDisplay = ({ entry}) => {
         }}
         defaultZoom={12}
       >
-        <Pin lat={fields.geolocation.lat} lng={fields.geolocation.lon} />
+        <Pin lat={entry.geolocation.lat} lng={entry.geolocation.lon} />
       </GoogleMapReact>
     </Block>
   );
