@@ -3,7 +3,6 @@ import { Block } from 'jsxstyle';
 import React from 'react';
 import { Pin } from '../Pin';
 import { googleMapsAPItoken } from './.env';
-// import { googleMapsAPItoken, log } from './index';
 export const LocationDisplay = ({ entry }) => {
   console.log('LocationDisplay render', entry);
   if (entry.contentType.sys.id !== 'locations') {
