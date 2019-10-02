@@ -4,7 +4,7 @@ import React from 'react';
 import { Pin } from '../Pin';
 
 export const LocationDisplay = ({ entry }) => {
-console.log('LocationDisplay render', entry);
+
 
   if (entry.contentType !== 'locations') {
     return null;
