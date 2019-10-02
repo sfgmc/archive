@@ -12,14 +12,15 @@ import { PeopleDisplay } from './PeopleDisplay';
 import { StoryDisplay } from './StoryDisplay';
 import { TagsDisplay } from './TagsDisplay';
 
+
+
 export const log = () => null;
 const meta = null;
 const fields = null;
 export const headshot = null;
-export const googleMapsAPItoken = null;
 export const file = null;
 
-// import { googleMapsAPItoken } from '../lib/googleMaps';
+
 // import { getYoutubeId, log } from '../utils';
 // import { getFields, getMeta } from '../utils/selectors';
 

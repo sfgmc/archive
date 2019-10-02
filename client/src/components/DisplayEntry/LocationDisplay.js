@@ -2,23 +2,24 @@ import GoogleMapReact from 'google-map-react';
 import { Block } from 'jsxstyle';
 import React from 'react';
 import { Pin } from '../Pin';
-import { googleMapsAPItoken, log } from './index';
-export const LocationDisplay = ({ entry, fields, meta }) => {
-  log('LocationDisplay render');
-  if (meta.contentType.sys.id !== 'locations') {
+
+export const LocationDisplay = ({ entry }) => {
+
+
+  if (entry.contentType !== 'locations') {
     return null;
   }
   return (
     <Block width="100%" height={300}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: googleMapsAPItoken }}
+        bootstrapURLKeys={{ key: "123" }}
         defaultCenter={{
-          lat: fields.geolocation.lat,
-          lng: fields.geolocation.lon
+          lat: entry.geolocation.lat,
+          lng: entry.geolocation.lon
         }}
         defaultZoom={12}
       >
-        <Pin lat={fields.geolocation.lat} lng={fields.geolocation.lon} />
+        <Pin lat={entry.geolocation.lat} lng={entry.geolocation.lon} />
       </GoogleMapReact>
     </Block>
   );
