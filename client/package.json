@@ -13,7 +13,7 @@
     "apollo-client": "^2.6.3",
     "apollo-link-context": "^1.0.18",
     "apollo-link-http": "^1.5.15",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "evergreen-ui": "^4.17.0",
     "get-graphql-schema": "^2.1.2",
     "google-map-react": "^1.1.4",
